@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mis Finanzas</title>
 <meta name="theme-color" content="#000000">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="dark light">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src https://*.supabase.co; form-action 'none'; base-uri 'none'">
 <meta name="referrer" content="no-referrer">
 <script>/*!
@@ -126,53 +126,66 @@ dialog::backdrop{background:rgba(0,0,0,.45)}dialog form{grid-template-columns:1f
 .qtbl input,.qtbl select{padding:6px;font-size:14px}.qtbl input:not([type]),.qtbl select{min-width:140px}.qtbl td{vertical-align:middle}tr.qok td{background:color-mix(in srgb,var(--ok) 10%,transparent)}
 @media (max-width:600px){.charts{grid-template-columns:1fr}.charts .card{height:280px}}
 
-/* ===== Tema oscuro minimalista ===== */
-:root,:root[data-x]{color-scheme:dark;--bg:#000;--card:#0c0c0e;--card2:#141417;--txt:#f4f4f5;--mut:#8a8a93;--line:#1f1f23;--line2:#2c2c31;--pri:#6ea0ff;--ok:#3ddc97;--bad:#ff6b6b;--warn:#f5b942}
-body{background:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+/* ===== Temas ===== */
+:root,:root[data-theme=negro]{color-scheme:dark;--bg:#000;--card:#0c0c0e;--card2:#141417;--item:#08080a;--inp:#070708;--txt:#f4f4f5;--mut:#8a8a93;--line:#1f1f23;--line2:#2c2c31;--hdr:rgba(0,0,0,.82);--acc:#f4f4f5;--on:#000;--pri:#6ea0ff;--ok:#3ddc97;--bad:#ff6b6b;--warn:#f5b942}
+:root[data-theme=grafito]{color-scheme:dark;--bg:#17181b;--card:#1f2024;--card2:#2a2b30;--item:#1b1c20;--inp:#141518;--txt:#e8e8ea;--mut:#9a9ba3;--line:#2b2c31;--line2:#3a3b41;--hdr:rgba(23,24,27,.86);--acc:#e8e8ea;--on:#17181b;--pri:#8fb3ff;--ok:#6fd3a5;--bad:#f08c8c;--warn:#e8c170}
+:root[data-theme=azul]{color-scheme:dark;--bg:#0b1220;--card:#111a2c;--card2:#18233a;--item:#0e1626;--inp:#0a1120;--txt:#e6edf7;--mut:#8b9ab3;--line:#1d2a42;--line2:#2a3a57;--hdr:rgba(11,18,32,.86);--acc:#7aa7ff;--on:#0b1220;--pri:#7aa7ff;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24}
+:root[data-theme=verde]{color-scheme:dark;--bg:#0a1411;--card:#0f1d18;--card2:#162821;--item:#0c1814;--inp:#08110e;--txt:#e7f2ec;--mut:#8fa89b;--line:#1a2e26;--line2:#264237;--hdr:rgba(10,20,17,.86);--acc:#5fd3a0;--on:#0a1411;--pri:#5fd3a0;--ok:#5fd3a0;--bad:#f28b82;--warn:#e9c46a}
+:root[data-theme=claro]{color-scheme:light;--bg:#f5f5f4;--card:#fff;--card2:#efefee;--item:#fafafa;--inp:#fff;--txt:#18181b;--mut:#6b6b73;--line:#e7e7e5;--line2:#d6d6d3;--hdr:rgba(245,245,244,.86);--acc:#18181b;--on:#fff;--pri:#2f6fed;--ok:#15965f;--bad:#d64545;--warn:#b7791f}
+body{background:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.005em;transition:background .2s}
 .v,.n,td.n,.kpi .v,input[type=number]{font-variant-numeric:tabular-nums}
-header{background:rgba(0,0,0,.82);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
-.logo{width:30px;height:30px;border-radius:9px;background:var(--txt);color:#000;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;letter-spacing:-.04em}
+header{background:var(--hdr);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+.logo{width:30px;height:30px;border-radius:9px;background:var(--acc);color:var(--on);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;letter-spacing:-.04em}
 .bname{font-weight:600;font-size:16px;letter-spacing:-.01em}
 nav button,.icon-btn{color:var(--mut);border-radius:12px}
 nav button:hover,.icon-btn:hover{background:var(--card2);color:var(--txt)}
 nav button.on{background:var(--card2);color:var(--txt);box-shadow:inset 0 0 0 1px var(--line2)}
-[data-tip]::after{background:#18181b;color:var(--txt);border:1px solid var(--line2)}
+[data-tip]::after{background:var(--card2);color:var(--txt);border:1px solid var(--line2)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:none;margin-bottom:14px}
-.grid{gap:0 14px}
+.grid{gap:0 14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.grid.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.kpi{container-type:inline-size;min-width:0}
 .kpi .l{font-size:12px;color:var(--mut);font-weight:500;letter-spacing:.01em}
-.kpi .v{font-size:24px;font-weight:600;letter-spacing:-.025em;margin-top:8px}
-.kpi .s{font-size:12px;margin-top:6px}
+.kpi .v{font-size:clamp(18px,11cqi,26px);font-weight:600;letter-spacing:-.025em;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi .s{font-size:12px;margin-top:6px;line-height:1.4}
 h2{font-size:15px;font-weight:600;letter-spacing:-.01em}
 .sec-h h2{font-size:24px;font-weight:650;letter-spacing:-.03em}
 h3.grp{font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--mut);margin:22px 0 10px}
-input,select{background:#070708;border:1px solid var(--line2);border-radius:10px;padding:9px 10px;color:var(--txt)}
-input:focus,select:focus{outline:none;border-color:var(--txt);box-shadow:0 0 0 3px rgba(255,255,255,.08)}
+input,select{background:var(--inp);border:1px solid var(--line2);border-radius:10px;padding:9px 10px;color:var(--txt)}
+input:focus,select:focus{outline:none;border-color:var(--txt);box-shadow:0 0 0 3px color-mix(in srgb,var(--txt) 10%,transparent)}
+input[type=month]{min-width:200px}
 label{color:var(--mut);font-weight:500}
-.btn{background:var(--txt);color:#000;border-radius:10px;font-weight:600;padding:9px 16px;transition:opacity .15s}
+.btn{background:var(--acc);color:var(--on);border-radius:10px;font-weight:600;padding:9px 16px;transition:opacity .15s}
 .btn:hover{opacity:.88}
 .btn.sec{background:transparent;color:var(--txt);border:1px solid var(--line2)}
 .btn.sec:hover{background:var(--card2);opacity:1}
 .btn.del{background:transparent;color:var(--bad);border:1px solid color-mix(in srgb,var(--bad) 40%,transparent)}
 .tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);font-weight:600;border-bottom:1px solid var(--line2)}
 .tbl td{border-bottom:1px solid var(--line)}
-.tbl tr:hover td{background:#0a0a0c}
+.tbl tr:hover td{background:var(--item)}
 .tag{background:var(--card2);color:var(--mut);border:1px solid var(--line2)}
-.item{border:1px solid var(--line);border-radius:14px;background:#08080a;padding:14px}
-.bar{background:var(--card2);height:6px}.bar i{background:var(--txt)}
+.item{border:1px solid var(--line);border-radius:14px;background:var(--item);padding:14px}
+.bar{background:var(--card2);height:6px}.bar i{background:var(--acc)}
 details summary{color:var(--txt)}
 details.addbox>summary{color:var(--txt);font-weight:600}
-.seg span{border-color:var(--line2)}.seg input:checked+span{background:var(--txt);color:#000;border-color:var(--txt)}
-.fab{background:var(--txt);color:#000;box-shadow:0 8px 24px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08)}
-.toast{background:#18181b;color:var(--txt);border:1px solid var(--line2)}
-.lock{background:radial-gradient(ellipse at top,#111114 0%,#000 60%)}
+.seg span{border-color:var(--line2)}.seg input:checked+span{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.fab{background:var(--acc);color:var(--on);box-shadow:0 8px 24px rgba(0,0,0,.45),0 0 0 1px color-mix(in srgb,var(--txt) 8%,transparent)}
+.toast{background:var(--card2);color:var(--txt);border:1px solid var(--line2)}
+.lock{background:radial-gradient(ellipse at top,var(--card2) 0%,var(--bg) 60%)}
 .lock .card{padding:26px;border-radius:20px}.lock h1{font-size:22px;letter-spacing:-.03em}
 dialog{background:var(--card);border:1px solid var(--line2);border-radius:18px}
-dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
 .opt{border-color:var(--line2)}
 .ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
 .tot{display:flex;flex-wrap:wrap;gap:8px 22px;padding:12px 2px 4px;border-top:1px solid var(--line);margin-top:6px;font-size:14px;color:var(--mut)}
 .tot b{font-weight:600;font-variant-numeric:tabular-nums}
-@media (max-width:760px){header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#000}nav{background:rgba(0,0,0,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}.card{padding:16px;border-radius:14px}.kpi .v{font-size:21px}}
+.temas{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin:8px 0 14px}
+.tema{border:1px solid var(--line2);border-radius:14px;padding:10px;cursor:pointer;background:transparent;color:var(--txt);text-align:left;font:inherit;font-size:13px}
+.tema.on{border-color:var(--txt);box-shadow:0 0 0 1px var(--txt)}
+.tema .sw{display:flex;height:42px;border-radius:9px;overflow:hidden;margin-bottom:8px;border:1px solid rgba(128,128,128,.25)}.tema .sw i{flex:1}
+@media (max-width:900px){.grid.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){header{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}nav{background:var(--hdr);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}.card{padding:16px;border-radius:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .v{font-size:clamp(16px,12cqi,22px)}}
+@media (max-width:360px){.grid,.grid.g3{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -201,7 +214,7 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
     <button data-s="inv" data-tip="Dinero trabajando y fondo" aria-label="Dinero trabajando y fondo"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg><span class="lbl">Inversiones</span></button>
     <button data-s="datos" data-tip="Respaldo, Drive y seguridad" aria-label="Respaldo, Drive y seguridad"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span class="lbl">Respaldo</span></button>
     </nav>
-    <div class="row hdr-r"><span class="hint" id="sync"></span><button class="icon-btn" id="bLogout" data-tip="Cerrar sesión" aria-label="Cerrar sesión"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button></div>
+    <div class="row hdr-r"><span class="hint" id="sync"></span><button class="icon-btn" id="bTema" data-tip="Colores de la app" aria-label="Colores de la app"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a5 5 0 0 0 5-5c0-4-4-7.2-9-7.2z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/></svg></button><button class="icon-btn" id="bLogout" data-tip="Cerrar sesión" aria-label="Cerrar sesión"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button></div>
   </div>
 </header>
 <button class="fab" id="fab" data-tip="Agregar un gasto o ingreso rápido" aria-label="Agregar un gasto o ingreso rápido"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
@@ -219,7 +232,7 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
 
 <!-- RESUMEN -->
 <section id="resumen" class="on">
-  <div class="row" style="margin-bottom:10px"><label style="max-width:180px">Mes<input type="month" id="mesSel"></label></div>
+  <div class="row" style="margin-bottom:10px"><label style="max-width:240px">Mes<input type="month" id="mesSel"></label></div>
   <div id="kpis"></div>
   <div class="card" id="alertas"></div>
   <div class="charts">
@@ -381,6 +394,7 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
   </div>
 </section>
 </main>
+<dialog id="dTema"><h2 style="margin-top:0">Colores de la app</h2><p class="hint">Elige el tema que más te guste. Se guarda en este dispositivo.</p><div class="temas" id="temas"></div><div class="row" style="justify-content:flex-end"><button class="btn" id="tmOk">Listo</button></div></dialog>
 <dialog id="dEdit"><form id="fEdit" method="dialog"><h2 id="deTit" style="margin:0">Editar</h2><div id="deCampos" style="display:grid;gap:10px"></div>
     <div class="row"><button class="btn" value="ok">Guardar cambios</button><button class="btn sec" value="cancel" formnovalidate>Cancelar</button></div></form></dialog>
 
@@ -535,18 +549,18 @@ function renderResumen(){
   const H=D.movs.filter(m=>!m.traslado),hi=H.filter(m=>m.tipo==='ingreso').reduce((x,m)=>x+m.monto,0),he=H.filter(m=>m.tipo==='egreso').reduce((x,m)=>x+m.monto,0);
   const fechas=H.map(m=>m.fecha).sort(),desde=fechas.length?mesTxt(fechas[0].slice(0,7)):'';
   $('#kpis').innerHTML=
-    `<h3 class="grp">Tu dinero hoy</h3><div class="grid">`+
-    kpi('En tu cuenta',fmt(saldoCuenta()),desgloseCuenta(),saldoCuenta()>=0?'ok':'bad')+
+    `<h3 class="grp">Tu dinero hoy</h3><div class="grid g3">`+
+    kpi('En tu cuenta',fmt(saldoCuenta()),`Según tus ${D.movs.length} movimientos`,saldoCuenta()>=0?'ok':'bad')+
     kpi('En el fondo',fmt(saldoFondo()),'Guardado, sin trabajar')+
     kpi('Trabajando',fmt(t.invertido),`Te genera ≈ ${fmt(t.pasivo)}/mes`,'ok')+
     kpi('Bolsa de bonos',fmt(saldoBolsa()),'Alimentación y hospedaje')+
     kpi('Lo que debes',fmt(t.deuda),`Cuotas ≈ ${fmt(t.cuotas)}/mes`,'bad')+
     kpi('Patrimonio neto',fmt(pat),'Lo que tienes − lo que debes',pat>=0?'ok':'bad')+
-    `</div><h3 class="grp">${mesTxt(mes)}</h3><div class="grid">`+
+    `</div><h3 class="grp">${mesTxt(mes)}</h3><div class="grid g3">`+
     kpi('Ingresos del mes',fmt(t.ing),'','ok')+
     kpi('Egresos del mes',fmt(t.egr),'','bad')+
     kpi('Te quedó',fmt(t.neto),t.ing?`Ahorras el ${ahorro.toFixed(0)} % de lo que ganas`:'',t.neto>=0?'ok':'bad')+
-    `</div><h3 class="grp">Total acumulado${desde?' · desde '+desde:''}</h3><div class="grid">`+
+    `</div><h3 class="grp">Total acumulado${desde?' · desde '+desde:''}</h3><div class="grid g3">`+
     kpi('Ingreso total',fmt(hi),`${H.filter(m=>m.tipo==='ingreso').length} ingresos registrados`,'ok')+
     kpi('Egreso total',fmt(he),`${H.filter(m=>m.tipo==='egreso').length} egresos registrados`,'bad')+
     kpi('Diferencia',fmt(hi-he),'Ingreso total − egreso total',hi-he>=0?'ok':'bad')+`</div>`;
@@ -764,6 +778,16 @@ $('#qRegBtn').onclick=()=>{const P=qPer(),[m,q]=qSel(),T=Q().plantillas[q];
 $('#fBolsa').onsubmit=e=>{e.preventDefault();const x=fd(e.target);D.bolsa=D.bolsa||[];D.bolsa.push({id:uid(),fecha:x.fecha,monto:-(+x.monto||0),desc:x.desc||'Gasto con bonos'});e.target.reset();e.target.fecha.value=hoy();save()};
 function delBolsa(id){if(conf()){D.bolsa=D.bolsa.filter(b=>b.id!==id);save()}}
 
+// ---------- Temas de color ----------
+const TEMAS=[['negro','Negro',['#000','#0c0c0e','#f4f4f5','#3ddc97']],['grafito','Grafito suave',['#17181b','#2a2b30','#e8e8ea','#6fd3a5']],['azul','Azul noche',['#0b1220','#18233a','#7aa7ff','#4ade80']],['verde','Verde bosque',['#0a1411','#162821','#5fd3a0','#e9c46a']],['claro','Claro',['#f5f5f4','#fff','#18181b','#2f6fed']]];
+function temaActual(){try{return localStorage.getItem('misFinanzas.tema')||'negro'}catch(_){return 'negro'}}
+function ponerTema(t){document.documentElement.dataset.theme=t;const m=document.querySelector('meta[name=theme-color]');if(m)m.content=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()||'#000';
+  try{localStorage.setItem('misFinanzas.tema',t)}catch(_){}
+  $$('.tema').forEach(b=>b.classList.toggle('on',b.dataset.t===t));if(S)renderResumen()}
+document.documentElement.dataset.theme=temaActual();
+$('#temas').innerHTML=TEMAS.map(([k,n,c])=>`<button type="button" class="tema" data-t="${k}"><div class="sw">${c.map(x=>`<i style="background:${x}"></i>`).join('')}</div>${n}</button>`).join('');
+$$('.tema').forEach(b=>b.onclick=()=>ponerTema(b.dataset.t));
+$('#bTema').onclick=()=>{ponerTema(temaActual());$('#dTema').showModal()};$('#tmOk').onclick=()=>$('#dTema').close();
 // ---------- Acciones ----------
 const fd=f=>Object.fromEntries(new FormData(f));
 $('#fMov').onsubmit=e=>{e.preventDefault();const x=fd(e.target);D.movs.push({id:uid(),tipo:x.tipo,fecha:x.fecha,monto:+x.monto,categoria:x.categoria.trim(),desc:x.desc});e.target.reset();e.target.fecha.value=hoy();save()};
