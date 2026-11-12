@@ -109,7 +109,7 @@ input,select{padding:8px;border:1px solid var(--line);border-radius:8px;backgrou
 .bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--pri)}
 .tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:10px;background:var(--line);color:var(--txt)}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.charts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.charts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
 .charts .card{height:320px;display:flex;flex-direction:column}.charts canvas{flex:1;min-height:0}
 .hint{color:var(--mut);font-size:13px;margin:4px 0 10px}
 .item{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px}
@@ -144,9 +144,11 @@ nav button.on{background:var(--card2);color:var(--txt);box-shadow:inset 0 0 0 1p
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:none;margin-bottom:14px}
 .grid{gap:0 14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
 .grid.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.kpi{container-type:inline-size;min-width:0}
+.grid>.kpi{container-type:inline-size;min-width:0}
+.row>.kpi{flex:1 1 260px;min-width:220px}
 .kpi .l{font-size:12px;color:var(--mut);font-weight:500;letter-spacing:.01em}
-.kpi .v{font-size:clamp(18px,11cqi,26px);font-weight:600;letter-spacing:-.025em;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi .v{font-size:24px;font-weight:600;letter-spacing:-.025em;margin-top:8px;}
+.grid>.kpi .v{font-size:clamp(18px,11cqi,26px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .kpi .s{font-size:12px;margin-top:6px;line-height:1.4}
 h2{font-size:15px;font-weight:600;letter-spacing:-.01em}
 .sec-h h2{font-size:24px;font-weight:650;letter-spacing:-.03em}
@@ -180,11 +182,17 @@ dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
 .tot{display:flex;flex-wrap:wrap;gap:8px 22px;padding:12px 2px 4px;border-top:1px solid var(--line);margin-top:6px;font-size:14px;color:var(--mut)}
 .tot b{font-weight:600;font-variant-numeric:tabular-nums}
 .temas{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin:8px 0 14px}
+.row>form.inline{flex:2 1 520px;max-width:720px;min-width:0}
+@media (min-width:761px){#fFondo,#fBolsa{grid-template-columns:minmax(190px,1.6fr) minmax(110px,1fr) minmax(140px,1fr) auto!important}}
+@media (max-width:760px){.row>form.inline{flex:1 1 100%;max-width:none;grid-template-columns:1fr 1fr!important}.row>form.inline>label:first-child{grid-column:1/-1}.row>form.inline>.btn{grid-column:1/-1}}
+form .btn{min-height:40px}
+input[type=checkbox]{accent-color:var(--ok);width:18px;height:18px}
+.qtbl input[type=checkbox]{width:20px;height:20px}
 .tema{border:1px solid var(--line2);border-radius:14px;padding:10px;cursor:pointer;background:transparent;color:var(--txt);text-align:left;font:inherit;font-size:13px}
 .tema.on{border-color:var(--txt);box-shadow:0 0 0 1px var(--txt)}
 .tema .sw{display:flex;height:42px;border-radius:9px;overflow:hidden;margin-bottom:8px;border:1px solid rgba(128,128,128,.25)}.tema .sw i{flex:1}
 @media (max-width:900px){.grid.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:760px){header{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}nav{background:var(--hdr);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}.card{padding:16px;border-radius:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .v{font-size:clamp(16px,12cqi,22px)}}
+@media (max-width:760px){header{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}nav{background:var(--hdr);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}.card{padding:16px;border-radius:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid>.kpi .v{font-size:clamp(16px,12cqi,22px)}}
 @media (max-width:360px){.grid,.grid.g3{grid-template-columns:1fr}}
 </style>
 </head>
@@ -247,11 +255,11 @@ dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
 <section id="movs">
   <div class="card">
     <div class="row" style="justify-content:space-between;align-items:flex-end">
-      <div class="kpi"><div class="l">💵 Dinero en la cuenta hoy</div><div class="v" id="saldoCta"></div><div class="s" id="saldoDes"></div></div>
-      <form id="fCta" style="grid-template-columns:repeat(auto-fit,minmax(150px,220px))"><label>¿Cuánto tienes realmente hoy?<input type="number" name="real" step="any" required placeholder="Ej: 182450"></label><button class="btn sec">Ajustar saldo</button></form>
+      <div class="kpi"><div class="l">Dinero en la cuenta hoy</div><div class="v" id="saldoCta"></div><div class="s" id="saldoDes"></div></div>
+      <form id="fCta" class="inline" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr));max-width:460px"><label>¿Cuánto tienes realmente hoy?<input type="number" name="real" step="any" required placeholder="Ej: 182450"></label><button class="btn sec">Ajustar saldo</button></form>
     </div>
   </div>
-  <details class="card addbox" data-k="addMov"><summary>➕ Registrar un movimiento con más detalle</summary>
+  <details class="card addbox" data-k="addMov"><summary>+ Registrar un movimiento con más detalle</summary>
     <form id="fMov">
       <label>Tipo<select name="tipo"><option value="egreso">Egreso (gasto)</option><option value="ingreso">Ingreso</option></select></label>
       <label>Fecha<input type="date" name="fecha" required></label>
@@ -273,7 +281,7 @@ dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
 
 <!-- DEUDAS -->
 <section id="deudas">
-  <details class="card addbox" data-k="addDeu"><summary>➕ Agregar un crédito o deuda</summary>
+  <details class="card addbox" data-k="addDeu"><summary>+ Agregar un crédito o deuda</summary>
     <p class="hint">Tarjetas de crédito, Addi u otras entidades, préstamos del fondo de empleados, o lo que le debas a una persona. Si no conoces la cuota, déjala vacía y se calcula con la tasa y el número de cuotas.</p>
     <form id="fDeu">
       <label>Nombre<input name="nombre" required placeholder="Ej: Celular en Addi"></label>
@@ -296,8 +304,8 @@ dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
 <section id="inv">
   <div class="card">
     <div class="row" style="justify-content:space-between;align-items:flex-end">
-      <div class="kpi"><div class="l">🏦 Dinero en el fondo (guardado, sin trabajar)</div><div class="v ok" id="saldoFondo"></div><div class="s">Aparte de tu cuenta y de lo que está trabajando</div></div>
-      <form id="fFondo" style="grid-template-columns:repeat(auto-fit,minmax(140px,190px))">
+      <div class="kpi"><div class="l">Dinero en el fondo · guardado, sin trabajar</div><div class="v ok" id="saldoFondo"></div><div class="s">Aparte de tu cuenta y de lo que está trabajando</div></div>
+      <form id="fFondo" class="inline" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
         <label>Acción<select name="acc"><option value="dep">Pasar de mi cuenta al fondo</option><option value="ret">Pasar del fondo a mi cuenta</option><option value="aj">Ajustar al saldo real</option></select></label>
         <label>Valor<input type="number" name="monto" step="any" min="0" required></label>
         <label>Fecha<input type="date" name="fecha" required></label>
@@ -306,7 +314,7 @@ dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
     </div>
     <details><summary>Ver movimientos del fondo</summary><div class="scroll"><table class="tbl" id="tFondo"></table></div></details>
   </div>
-  <details class="card addbox" data-k="addInv"><summary>➕ Agregar dinero prestado o invertido</summary>
+  <details class="card addbox" data-k="addInv"><summary>+ Agregar dinero prestado o invertido</summary>
     <p class="hint"><b>Con interés mensual:</b> prestas un capital, recibes interés cada mes por tiempo indefinido y al final te devuelven el mismo capital (ej. 10 M al 2 % = 200 mil/mes).<br><b>Plazo y monto fijo:</b> entregas un capital y al vencer recibes un monto fijo (ej. 15 M y a los 6 meses recibes 16 M).</p>
     <form id="fInv">
       <label>Nombre / Persona<input name="nombre" required placeholder="Ej: Préstamo primo"></label>
@@ -322,7 +330,7 @@ dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
   </details>
   <div class="grid" id="kInv"></div>
   <div class="card"><h2>Mis inversiones y préstamos dados</h2>
-    <p class="hint">💡 Este dinero <b>no está en tu cuenta</b>: lo tienes prestado o en un fondo, por eso no suma en "Dinero en la cuenta". Solo entra a tu cuenta lo que marques como <b>"me lo pagaron a mi cuenta"</b> (intereses o la devolución final).</p>
+    <p class="hint">Este dinero <b>no está en tu cuenta</b>: lo tienes prestado o en un fondo, por eso no suma en "Dinero en la cuenta". Solo entra a tu cuenta lo que marques como <b>"me lo pagaron a mi cuenta"</b> (intereses o la devolución final).</p>
     <div id="lInv"></div></div>
   
   <dialog id="dCierre"><form id="fCierre" method="dialog">
@@ -340,7 +348,7 @@ dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
 <section id="quin">
   <div class="card">
     <div class="row" style="justify-content:space-between;align-items:flex-end">
-      <h2 style="margin:0">Mi quincena</h2>
+      <h2 style="margin:0">Periodo</h2>
       <div class="row"><label>Mes<input type="month" id="qMes"></label><label>Quincena<select id="qQ"><option value="q5">Quincena del 5</option><option value="q20">Quincena del 20</option></select></label></div>
     </div>
     <p class="hint">Marca ✔ cada gasto cuando lo pagues: se agrega solo a Ingresos y egresos (y a la deuda si está vinculada). Cambia nombres o valores escribiendo directo en la tabla; los cambios quedan para las próximas quincenas.</p>
@@ -353,7 +361,7 @@ dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
     </div>
     <div class="card" style="height:auto;display:block">
       <h2>Pago de la quincena</h2>
-      <label style="max-width:260px">Total de la quincena (como en tu desprendible)<input type="number" step="any" id="qSueldo"></label>
+      <label style="max-width:360px">Total de la quincena (como en tu desprendible)<input type="number" step="any" id="qSueldo"></label>
       <div class="row" style="justify-content:space-between;margin-top:12px"><b style="font-size:14px">Bonos</b><button class="btn sm sec" id="qAddBono">+ Agregar bono</button></div>
       <p class="hint" style="margin:4px 0">Los de <b>alimentación, hospedaje y viáticos</b> van a tu <b>bolsa de bonos</b> y no a tu cuenta. Los de <b>producción</b> márcalos como "Extra a mi cuenta".</p>
       <div class="scroll"><table class="tbl qtbl" id="qBonos"></table></div>
@@ -363,8 +371,8 @@ dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
   </div>
   <div class="card">
     <div class="row" style="justify-content:space-between;align-items:flex-end">
-      <div class="kpi"><div class="l">🍽 Bolsa de bonos (alimentación, hospedaje, viáticos)</div><div class="v ok" id="bolsaSaldo"></div><div class="s">No es dinero de tu cuenta: es lo que te dan para esos gastos</div></div>
-      <form id="fBolsa" style="grid-template-columns:repeat(auto-fit,minmax(130px,180px))">
+      <div class="kpi"><div class="l">Bolsa de bonos · alimentación, hospedaje y viáticos</div><div class="v ok" id="bolsaSaldo"></div><div class="s">No es dinero de tu cuenta: es lo que te dan para esos gastos</div></div>
+      <form id="fBolsa" class="inline" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
         <label>Gasté con bonos en…<input name="desc" placeholder="Ej: Hospedaje" required></label>
         <label>Valor<input type="number" name="monto" step="any" min="0" required></label>
         <label>Fecha<input type="date" name="fecha" required></label>
@@ -381,8 +389,8 @@ dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
     <p class="hint">Tus datos se guardan cifrados en la nube y se sincronizan entre tu PC y tu celular. Igual puedes descargar un respaldo (también cifrado) para guardarlo en Drive.</p>
     <div class="row">
       <button class="btn" id="bExp">Descargar respaldo (.json)</button>
-      <label class="btn sec" style="flex-direction:row;color:var(--pri)">Cargar respaldo<input type="file" id="bImp" accept=".json" hidden></label>
-      <label class="btn sec" style="flex-direction:row;color:var(--pri)">Importar desde Excel (mis-finanzas.xlsx)<input type="file" id="bXls" accept=".xlsx" hidden></label>
+      <label class="btn sec" style="flex-direction:row;color:var(--txt)">Cargar respaldo<input type="file" id="bImp" accept=".json" hidden></label>
+      <label class="btn sec" style="flex-direction:row;color:var(--txt)">Importar desde Excel (mis-finanzas.xlsx)<input type="file" id="bXls" accept=".xlsx" hidden></label>
       <button class="btn sec" id="bDemo">Cargar datos de ejemplo</button>
       <button class="btn del" id="bClr">Borrar todo</button>
     </div>
@@ -620,7 +628,7 @@ function renderDeudas(){
     <div class="row" style="justify-content:space-between"><span>Saldo: <b class="bad">${fmt(e.saldo)}</b></span><span class="hint">Pagado ${fmt(e.pagado)} (${e.cuotasPag}/${d.cuotas} cuotas) · intereses ${fmt(e.intPag)}</span></div>
     <div class="bar"><i style="width:${(e.pct*100).toFixed(0)}%"></i></div>
     ${e.saldo>0.5?`<form class="pago" style="margin-top:10px" onsubmit="pagoDeu(event,'${d.id}')"><label>Fecha<input type="date" name="fecha" value="${hoy()}"></label><label>Valor pagado<input type="number" name="monto" step="any" value="${Math.round(Math.min(e.cuota,e.saldo*(1+d.tasa/100)))}"></label><label style="flex-direction:row;align-items:center;gap:6px"><input type="checkbox" name="mov" checked style="width:auto">Registrar como egreso</label><button class="btn sm">Registrar pago</button></form>`:''}
-    <details data-k="d${d.id}"><summary>📋 Seguimiento de cuotas (${d.pagos.length}/${d.cuotas} pagadas)</summary>${planDeuda(d)}</details>
+    <details data-k="d${d.id}"><summary>Seguimiento de cuotas (${d.pagos.length}/${d.cuotas} pagadas)</summary>${planDeuda(d)}</details>
   </div>`).join(''):'<p class="hint">Aún no has registrado créditos ni deudas.</p>';
 }
 
@@ -639,7 +647,7 @@ function renderInv(){
       ${v.modo==='interes'?`<form class="pago" style="flex:1" onsubmit="cobroInv(event,'${v.id}')"><label>Fecha<input type="date" name="fecha" value="${hoy()}"></label><label>Interés recibido<input type="number" name="monto" step="any" value="${Math.round(e.mensual)}"></label><label style="flex-direction:row;align-items:center;gap:6px" title="Si no la marcas, el interés se suma al fondo"><input type="checkbox" name="mov" checked style="width:auto">Me lo pagaron a mi cuenta (si no, va al fondo)</label><button class="btn sm">Registrar interés</button></form>`:''}
       <button class="btn sm sec" onclick="devolverInv('${v.id}')">${v.modo==='interes'?'Me devolvieron el capital (terminar)':'Me pagaron (terminar)'}</button></div>`:
       `<div class="row" style="justify-content:space-between;margin-top:8px"><span class="hint">${v.recibidoFinal!=null?'Recibiste '+fmt(v.recibidoFinal)+' · '+(v.destino==='fondo'?'se sumó al fondo':'entró a tu cuenta'):'Terminada'}</span><button class="btn sm sec" onclick="reabrirInv('${v.id}')">Reabrir</button></div>`}
-    <details data-k="i${v.id}"><summary>📋 Seguimiento de pagos (${v.cobros.length} registrados)</summary>${planInv(v,e)}</details>
+    <details data-k="i${v.id}"><summary>Seguimiento de pagos (${v.cobros.length} registrados)</summary>${planInv(v,e)}</details>
   </div>`).join(''):'<p class="hint">Aún no has registrado dinero trabajando.</p>';
 }
 
